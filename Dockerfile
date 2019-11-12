@@ -15,6 +15,7 @@ WORKDIR /home/node/app
 COPY --chown=node package*.json ./
 
 RUN npm install
+RUN npm install -g @angular/cli@7.3.9
 
 # Bundle app source code
 COPY --chown=node . .
