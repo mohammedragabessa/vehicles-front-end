@@ -102,7 +102,8 @@ The app template is based on [HTML5](http://whatwg.org/html), [TypeScript](http:
 
 #### Tools
 
-Development, build and quality processes are based on [angular-cli](https://github.com/angular/angular-cli) and
+Development, build and quality processes are based on [angular-cli](https://github.com/angular/angular-cli)
+and
 [NPM scripts](https://docs.npmjs.com/misc/scripts), which includes:
 
 - Optimized build and bundling process with [Webpack](https://webpack.github.io)
