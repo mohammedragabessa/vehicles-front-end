@@ -10,4 +10,4 @@ RUN npm install
 RUN npm run build --prod
 
 FROM nginx:alpine
-COPY --from=node /app/dist/ng-docker-example /usr/share/ngnix/html
+COPY --from=node /app/dist/vehicles-front-end /usr/share/ngnix/html
