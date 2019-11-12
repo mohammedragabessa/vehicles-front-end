@@ -18,11 +18,10 @@ export interface RandomQuoteContext {
 export class VehicleService {
   constructor(private httpClient: HttpClient) {}
 
-  getRandomQuote(context: RandomQuoteContext): Observable<string> {
+  getVehicles(): Observable<string> {
     return this.httpClient.get('vehicles').pipe(
       map((body: any) => {
-        console.log(body);
-        return body.value;
+        return body;
       }),
       catchError(() => of('Error, could not load joke :-('))
     );

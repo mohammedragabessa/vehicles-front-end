@@ -9,7 +9,7 @@ import { VehicleService } from './vehicle.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  quote: string | undefined;
+  vehicles: any[];
   isLoading = false;
 
   constructor(private vehicleService: VehicleService) {}
@@ -17,14 +17,14 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.isLoading = true;
     this.vehicleService
-      .getRandomQuote({ category: 'dev' })
+      .getVehicles()
       .pipe(
         finalize(() => {
           this.isLoading = false;
         })
       )
-      .subscribe((quote: string) => {
-        this.quote = quote;
+      .subscribe((data: any) => {
+        this.vehicles = data;
       });
   }
 }
