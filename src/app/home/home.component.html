@@ -8,10 +8,34 @@
     <div *ngIf="vehicles">
       <h4>Total Count : {{ vehicles.length }}</h4>
       <div class="d-flex flex-column">
-        <div *ngFor="let vehicle of vehicles" class="p-3 bd-highlight justify-content-start">
-          <div>{{ vehicle.vin }}</div>
+        <div class="card mb-2" *ngFor="let vehicle of vehicles">
+          <div class="card-body">
+            <div>
+              <b class="d-flex"> Vehicle Info</b>
+              <hr />
+              <div class="d-flex">
+                VIN :
+                <h5 class="card-title">{{ vehicle.vin }}</h5>
+              </div>
+              <div class="d-flex">Registration Number : {{ vehicle.regnumber }}</div>
 
-          <div>{{ vehicle.regnumber }}</div>
+              <div *ngIf="vehicle.customer">
+                <br />
+                <b class="d-flex"> Owner Info</b>
+                <hr />
+                <div class="d-flex">
+                  Name :
+                  <h5 class="card-title">{{ vehicle.customer.name }}</h5>
+                </div>
+                <div class="d-flex">Address: {{ vehicle.customer.address }}</div>
+              </div>
+
+              <p class="card-text d-flex">Status : {{ vehicle.isConnected ? 'Connected' : 'Disconnected' }}</p>
+              <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+              <div *ngIf="vehicle.isConnected" style="height: 20px;" class="bg-success"></div>
+              <div *ngIf="!vehicle.isConnected" style="height: 20px;" class="bg-danger"></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
