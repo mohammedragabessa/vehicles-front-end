@@ -15,16 +15,16 @@ export interface RandomQuoteContext {
 @Injectable({
   providedIn: 'root'
 })
-export class QuoteService {
+export class VehicleService {
   constructor(private httpClient: HttpClient) {}
 
   getRandomQuote(context: RandomQuoteContext): Observable<string> {
-    return this.httpClient
-      .cache()
-      .get(routes.quote(context))
-      .pipe(
-        map((body: any) => body.value),
-        catchError(() => of('Error, could not load joke :-('))
-      );
+    return this.httpClient.get('vehicles').pipe(
+      map((body: any) => {
+        console.log(body);
+        return body.value;
+      }),
+      catchError(() => of('Error, could not load joke :-('))
+    );
   }
 }
