@@ -15,7 +15,7 @@ WORKDIR /app
 # install and cache app dependencies
 COPY package.json ./
 RUN npm install
-RUN npm install -g @angular/cli@7.3.9
+RUN npm install -g @angular/cli
 
 # add app
 COPY . .
@@ -24,7 +24,7 @@ RUN npm run build
 
 FROM nginx:1.16.0-alpine as prod-stage
 
-COPY --from=node /app/dist/vehicle-frontend /usr/share/nginx/html
+COPY /app/dist/vehicle-frontend /usr/share/nginx/html
 
 EXPOSE 80
 # start app
