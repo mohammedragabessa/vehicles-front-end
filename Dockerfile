@@ -1,52 +1,11 @@
-# base image
-FROM node:latest
-
-# install chrome for protractor tests
-RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
-RUN sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
-RUN apt-get update && apt-get install -yq google-chrome-stable
-
-# set working directory
-WORKDIR /src
-
-# add `/app/node_modules/.bin` to $PATH
-ENV PATH /app/node_modules/.bin:$PATH
-
-# install and cache app dependencies
-COPY package.json /app/package.json
+### STAGE 1: Build ###
+FROM node:12.7-alpine AS build
+WORKDIR /usr/src/app
+COPY package.json ./
 RUN npm install
-RUN npm install -g @angular/cli@7.3.9
-
+COPY . .
 RUN npm run build
 
-# add app
-COPY . /src
-
-# start app
-CMD npm start --host 0.0.0.0
-
-
-
-# # base image
-# FROM node:latest
-
-# # set working directory
-# WORKDIR /app
-
-# # install and cache app dependencies
-# COPY package.json ./
-# RUN npm install
-# RUN npm install -g @angular/cli
-
-# # add app
-# COPY . .
-
-# RUN npm run build
-
-# FROM nginx:1.16.0-alpine as prod-stage
-
-# COPY /app/dist/vehicle-frontend /usr/share/nginx/html
-
-# EXPOSE 80
-# # start app
-# CMD ["nginx","-g","daemon off:"]
+### STAGE 2: Run ###
+FROM nginx:1.17.1-alpine
+COPY --from=build /usr/src/app/dist/vehicle-frontend /usr/share/nginx/html
