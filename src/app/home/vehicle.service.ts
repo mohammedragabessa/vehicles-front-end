@@ -23,7 +23,7 @@ export class VehicleService {
       map((body: any) => {
         return body;
       }),
-      catchError(() => of('Error, could not load joke :-('))
+      catchError(() => of('Error, could not load vrhicles :-('))
     );
   }
 }
