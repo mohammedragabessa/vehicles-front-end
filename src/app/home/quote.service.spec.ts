@@ -26,29 +26,26 @@ describe('VehicleService', () => {
     httpMock.verify();
   });
 
-  describe('getRandomQuote', () => {
-    it('should return a random Chuck Norris quote', () => {
-      // Arrange
-      const mockQuote = { value: 'a random quote' };
-
+  describe('getVehicles', () => {
+    it('should return an array and length morethan zero', () => {
       // Act
-      const randomQuoteSubscription = vehicleService.getRandomQuote({ category: 'toto' });
+      const dataSubscription = vehicleService.getVehicles();
 
       // Assert
-      randomQuoteSubscription.subscribe((quote: string) => {
-        expect(quote).toEqual(mockQuote.value);
+      dataSubscription.subscribe((data: any) => {
+        expect(data.length).toBeGreaterThan(0);
       });
-      httpMock.expectOne({}).flush(mockQuote);
+      // httpMock.expectOne({}).flush(mockQuote);
     });
 
     it('should return a string in case of error', () => {
       // Act
-      const randomQuoteSubscription = vehicleService.getRandomQuote({ category: 'toto' });
+      const randomQuoteSubscription = vehicleService.getVehicles();
 
       // Assert
-      randomQuoteSubscription.subscribe((quote: string) => {
-        expect(typeof quote).toEqual('string');
-        expect(quote).toContain('Error');
+      randomQuoteSubscription.subscribe((data: any) => {
+        expect(typeof data).toEqual('array');
+        expect(data).toContain('Error');
       });
       httpMock.expectOne({}).flush(null, {
         status: 500,

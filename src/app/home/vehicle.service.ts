@@ -18,7 +18,7 @@ export interface RandomQuoteContext {
 export class VehicleService {
   constructor(private httpClient: HttpClient) {}
 
-  getVehicles(): Observable<string> {
+  getVehicles(): Observable<any> {
     return this.httpClient.get('vehicles').pipe(
       map((body: any) => {
         return body;
