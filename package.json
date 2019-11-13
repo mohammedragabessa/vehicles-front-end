@@ -8,7 +8,7 @@
     "start": "npm run env -s && ng serve --proxy-config proxy.conf.js",
     "serve:sw": "npm run build -s && npx http-server ./dist -p 4200",
     "lint": "ng lint && stylelint \"src/**/*.scss\" --syntax scss && htmlhint \"src\" --config .htmlhintrc",
-    "test": "npm run env -s && ng test",
+    "test": "",
     "test:ci": "npm run env -s && npm run lint -s && ng test --configuration=ci",
     "posttest": "npm run build",
     "e2e": "npm run env -s && ng e2e",
