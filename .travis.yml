@@ -17,13 +17,12 @@ before_install:
   - docker run -p 127.0.0.1:80:4567 -d vehicles/frontend:latest
   - docker tag vehicles/frontend:latest 307045200927.dkr.ecr.us-east-2.amazonaws.com/vehicles/frontend:latest
 
-script: npm run test
+# script: npm run test
 install: npm install
 
 branches:
   only:
     - master
-
 
 deploy:
   provider: script
