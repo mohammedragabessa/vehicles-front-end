@@ -20,5 +20,12 @@ RUN npm install -g @angular/cli@7.3.9
 # add app
 COPY . /app
 
+RUN npm run build
+
+# Bind to all network interfaces so that it can be mapped to the host OS
+ENV HOST=0.0.0.0 PORT=8080
+
+EXPOSE ${PORT}
+
 # start app
-CMD ng serve --host 0.0.0.0
+CMD npm start
