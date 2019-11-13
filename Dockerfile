@@ -24,7 +24,7 @@ RUN npm run build
 
 FROM nginx:1.16.0-alpine as prod-stage
 
-COPY --from=node /app/dist /usr/share/nginx/html
+COPY --from=node /app/dist/vehicle-frontend /usr/share/nginx/html
 
 EXPOSE 80
 # start app
