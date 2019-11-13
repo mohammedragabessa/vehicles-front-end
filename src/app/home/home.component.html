@@ -1,39 +1,74 @@
 <div class="container-fluid">
-  <div class="jumbotron text-center">
-    <h1>
-      <span translate>Vehicles </span>
-    </h1>
-    <app-loader [isLoading]="isLoading"></app-loader>
+  <app-loader [isLoading]="isLoading"></app-loader>
+  <div *ngIf="vehicles">
+    <div class="filterbtns d-flex mb-1 mt-3 p-2">
+      <div *ngIf="customers" [(ngModel)]="selectedCustomer" ngbDropdown class="d-inline-block">
+        <button class="btn " id="dropdownBasic1" ngbDropdownToggle>Select Customer</button>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+          <button *ngFor="let customer of customers" ngbDropdownItem>
+            {{ customer.name }}
+          </button>
+        </div>
+      </div>
 
-    <div *ngIf="vehicles">
-      <h4>Total Count updated : {{ vehicles.length }}</h4>
-      <div class="d-flex flex-column">
-        <div class="card mb-2" *ngFor="let vehicle of vehicles">
-          <div class="card-body">
-            <div>
-              <b class="d-flex"> Vehicle Info</b>
-              <hr />
-              <div class="d-flex">
-                VIN :
-                <h5 class="card-title">{{ vehicle.vin }}</h5>
-              </div>
-              <div class="d-flex">Registration Number : {{ vehicle.regnumber }}</div>
+      <div class="btn-group btn-group-toggle  ml-2" ngbRadioGroup name="radioBasic" [(ngModel)]="selectedStatus">
+        <label ngbButtonLabel class="btn-light">
+          <input (change)="filterConnected(true)" value="1" ngbButton type="radio" /> Connected
+        </label>
 
-              <div *ngIf="vehicle.customer">
-                <br />
-                <b class="d-flex"> Owner Info</b>
+        <label ngbButtonLabel class="btn-light">
+          <input (change)="filterConnected(false)" value="2" ngbButton type="radio" /> Disconnected
+        </label>
+      </div>
+
+      <button type="button" (click)="clearFilters()" class="btn btn-light">Clear filters</button>
+    </div>
+
+    <p class="d-flex mb-1 p-2">
+      <span class="badge badge-light text-info">Total: {{ vehicles.length }}</span>
+      <span class="badge badge-light text-success">Connected: {{ connectedCount }}</span>
+      <span class="badge badge-light text-danger">Disconnected: {{ disconnectedCount }}</span>
+    </p>
+
+    <div class="d-flex flex-wrap">
+      <div class=" card mb-2 m-2" style="min-width: 45em;" *ngFor="let vehicle of vehicles">
+        <div class="card-body p-0">
+          <div class="d-flex shadow bg-white rounded">
+            <div *ngIf="vehicle.isConnected" style="width: 15px;" class="bg-success"></div>
+            <div *ngIf="!vehicle.isConnected" style="width: 15px;" class="bg-danger"></div>
+
+            <div class="d-flex flex-grow-1 m-2 p-2">
+              <div>
+                <b class="d-flex text-secondary"> Vehicle Info</b>
                 <hr />
                 <div class="d-flex">
-                  Name :
-                  <h5 class="card-title">{{ vehicle.customer.name }}</h5>
+                  <p class="text-secondary">VIN :</p>
+                  <p class="card-title">{{ vehicle.vin }}</p>
                 </div>
-                <div class="d-flex">Address: {{ vehicle.customer.address }}</div>
+                <div class="d-flex">
+                  <p class="text-secondary">Registration Number :</p>
+                  {{ vehicle.regnumber }}
+                </div>
+
+                <div class="card-text d-flex">
+                  <p class="text-secondary">Status :</p>
+                  {{ vehicle.isConnected ? 'Connected' : 'Disconnected' }}
+                </div>
+                <!-- <p class="card-text d-flex"><small class="text-muted">Last updated 3 mins ago</small></p> -->
               </div>
 
-              <p class="card-text d-flex">Status : {{ vehicle.isConnected ? 'Connected' : 'Disconnected' }}</p>
-              <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-              <div *ngIf="vehicle.isConnected" style="height: 20px;" class="bg-success"></div>
-              <div *ngIf="!vehicle.isConnected" style="height: 20px;" class="bg-danger"></div>
+              <div class="ml-5" *ngIf="vehicle.customer">
+                <b class="d-flex text-secondary"> Owner Info</b>
+                <hr />
+                <div class="d-flex">
+                  <p class="text-secondary">Name :</p>
+                  <p class="card-title">{{ vehicle.customer.name }}</p>
+                </div>
+                <div class="d-flex">
+                  <p class="text-secondary">Address:</p>
+                  {{ vehicle.customer.address }}
+                </div>
+              </div>
             </div>
           </div>
         </div>

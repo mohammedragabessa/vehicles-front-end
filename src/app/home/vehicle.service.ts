@@ -26,4 +26,13 @@ export class VehicleService {
       catchError(() => of('Error, could not load vrhicles :-('))
     );
   }
+
+  getCustomers(): Observable<any> {
+    return this.httpClient.get('customers').pipe(
+      map((body: any) => {
+        return body;
+      }),
+      catchError(() => of('Error, could not load customers :-('))
+    );
+  }
 }
