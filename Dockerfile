@@ -1,5 +1,5 @@
 # base image
-FROM node:12.2.0
+FROM node:latest
 
 # # install chrome for protractor tests
 # RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
@@ -24,7 +24,7 @@ RUN npm run build
 
 FROM nginx:1.16.0-alpine as prod-stage
 
-COPY /app/dist/vehiclesfrontend /usr/share/nginx/html
+COPY --from=node /app/dist/vehiclesfrontend /usr/share/nginx/html
 
 EXPOSE 80
 # start app
