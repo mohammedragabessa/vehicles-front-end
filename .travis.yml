@@ -22,7 +22,7 @@ before_install:
   # - docker tag loopback:latest mohamedragabessa/loopbacktravis:latest
 
 # script: npm run test
-install: npm install
+# install: npm install
 
 branches:
   only:
