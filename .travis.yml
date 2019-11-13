@@ -13,7 +13,7 @@ before_install:
   - docker build -t loopback .
   - docker run -p 127.0.0.1:80:4567 -d loopback:latest
   - docker ps -a
-  - docker tag loopback:latest mohamedragabessa/loopbacktravis:latest
+  - docker tag loopback:latest mohamedragabessa/vehicle-frontend:latest
 
 # before_install:
 #   - pip install --user awscli
@@ -33,7 +33,7 @@ branches:
 before_deploy: echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
 deploy:
   provider: script
-  script: docker push mohamedragabessa/loopbacktravis:latest
+  script: docker push mohamedragabessa/vehicle-frontend:latest
   on:
     branch: master
 # deploy:
