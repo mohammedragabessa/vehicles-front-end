@@ -7,7 +7,7 @@ RUN sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable 
 RUN apt-get update && apt-get install -yq google-chrome-stable
 
 # set working directory
-WORKDIR /app
+WORKDIR /src
 
 # add `/app/node_modules/.bin` to $PATH
 ENV PATH /app/node_modules/.bin:$PATH
@@ -20,7 +20,7 @@ RUN npm install -g @angular/cli@7.3.9
 RUN npm run build
 
 # add app
-COPY . /app
+COPY . /src
 
 # start app
 CMD npm start --host 0.0.0.0
