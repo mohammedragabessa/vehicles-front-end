@@ -16,24 +16,16 @@ before_install:
   - docker build -t vehicles/frontend .
   - docker run -p 127.0.0.1:80:4567 -d vehicles/frontend:latest
   - docker tag vehicles/frontend:latest 307045200927.dkr.ecr.us-east-2.amazonaws.com/vehicles/frontend:latest
-  # - docker build -t loopback .
-  # - docker run -p 127.0.0.1:80:4567 -d loopback:latest
-  # - docker ps -a
-  # - docker tag loopback:latest mohamedragabessa/loopbacktravis:latest
 
-script: npm run test
+# script: npm run test
 install: npm install
 
 branches:
   only:
     - master
 
-before_deploy:
-
 deploy:
   provider: script
   script: docker push 307045200927.dkr.ecr.us-east-2.amazonaws.com/vehicles/frontend:latest
-  # docker push mohamedragabessa/loopbacktravis:latest
   on:
     branch: master
-    # loopback:latest

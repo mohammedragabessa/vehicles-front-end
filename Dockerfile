@@ -1,16 +1,10 @@
-# base image
-FROM node:latest as node
-
-# set working directory
+# stage 1
+FROM node:latest as node 
 WORKDIR /app
-
-# install and cache app dependencies
 COPY . .
 RUN npm install
-RUN npm install -g @angular/cli@7.3.9
 RUN npm run build --prod
 
+#stage 2
 FROM nginx:alpine
-COPY --from=node /app/dist /usr/share/ngnix/html
-
-CMD ng serve --host 0.0.0.0
+COPY --from=node /app/dist/vehicle-frontend /usr/share/nginx/html

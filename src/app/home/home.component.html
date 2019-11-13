@@ -6,7 +6,7 @@
     <app-loader [isLoading]="isLoading"></app-loader>
 
     <div *ngIf="vehicles">
-      <h4>Total Count : {{ vehicles.length }}</h4>
+      <h4>Total Count updated : {{ vehicles.length }}</h4>
       <div class="d-flex flex-column">
         <div class="card mb-2" *ngFor="let vehicle of vehicles">
           <div class="card-body">
