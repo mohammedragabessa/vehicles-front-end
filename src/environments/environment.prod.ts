@@ -10,7 +10,7 @@ export const environment = {
   production: true,
   hmr: false,
   version: env.npm_package_version,
-  serverUrl: 'http://localhost:3000/',
+  serverUrl: 'http://vehicle-backend-container.us-east-2.elasticbeanstalk.com/',
   defaultLanguage: 'en-US',
   supportedLanguages: ['en-US', 'fr-FR']
 };
