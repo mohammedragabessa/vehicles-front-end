@@ -12,11 +12,11 @@
 
       <div class="btn-group btn-group-toggle  ml-2" ngbRadioGroup name="radioBasic" [(ngModel)]="selectedStatus">
         <label ngbButtonLabel class="btn-light">
-          <input (change)="filterConnected(1)" value="1" ngbButton type="radio" /> Connected
+          <input ngbButton (click)="filterConnected(1)" value="1" type="radio" /> Connected
         </label>
 
         <label ngbButtonLabel class="btn-light">
-          <input (change)="filterConnected(2)" value="2" ngbButton type="radio" /> Disconnected
+          <input ngbButton (click)="filterConnected(2)" value="2" type="radio" /> Disconnected
         </label>
       </div>
 
@@ -24,7 +24,7 @@
     </div>
 
     <p class="d-flex flex-wrap mb-1 p-2">
-      <span class="badge badge-light text-info">Total: {{ vehicles.length }}</span>
+      <span class="badge badge-light text-info">Total: {{ allvehicles.length }}</span>
       <span class="badge badge-light text-success">Connected: {{ connectedCount }}</span>
       <span class="badge badge-light text-danger">Disconnected: {{ disconnectedCount }}</span>
     </p>

@@ -72,8 +72,8 @@ export class HomeComponent implements OnInit {
       .subscribe((data: any) => {
         this.allvehicles = data;
         this.vehicles = data;
-        this.disconnectedCount = this.vehicles.filter(e => e.isConnected === false).length;
-        this.connectedCount = this.vehicles.filter(e => e.isConnected === true).length;
+        this.disconnectedCount = this.allvehicles.filter(e => e.isConnected === false).length;
+        this.connectedCount = this.allvehicles.filter(e => e.isConnected === true).length;
       });
   }
 
