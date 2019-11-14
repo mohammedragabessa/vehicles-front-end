@@ -19,11 +19,16 @@ export class HomeComponent implements OnInit {
   isLoading = false;
   selectedStatus = 0;
   selectedCustomer: any;
+  emptyCustomer = {
+    name: 'Select Customer',
+    id: -1
+  };
 
   constructor(private vehicleService: VehicleService) {}
 
   ngOnInit() {
     this.isLoading = true;
+    this.selectedCustomer = this.emptyCustomer;
     this.getCustomers();
     this.getVehicles();
   }
@@ -31,14 +36,29 @@ export class HomeComponent implements OnInit {
   clearFilters() {
     this.vehicles = this.allvehicles;
     this.selectedStatus = 0;
+    this.selectedCustomer = this.emptyCustomer;
   }
 
-  filterConnected(isConnected: boolean) {
-    this.vehicles = this.allvehicles.filter(v => v.isConnected === isConnected);
+  filterConnected(status: number) {
+    this.selectedStatus = status;
+    this.filterData();
   }
 
-  filterByCustomer() {
-    console.log(this.selectedCustomer);
+  filterByCustomer(customer: any) {
+    this.selectedCustomer = customer;
+    this.filterData();
+  }
+
+  private filterData() {
+    if (this.selectedCustomer.id === -1) {
+      this.vehicles = this.allvehicles.filter(v => v.isConnected === (this.selectedStatus === 1));
+    } else if (this.selectedStatus === 0) {
+      this.vehicles = this.allvehicles.filter(v => v.isConnected === (v.customer.id === this.selectedCustomer.id));
+    } else {
+      this.vehicles = this.allvehicles.filter(
+        v => v.isConnected === (this.selectedStatus === 1) && v.customer.id === this.selectedCustomer.id
+      );
+    }
   }
 
   private getVehicles() {

@@ -1,11 +1,10 @@
 <div class="container-fluid">
-  <app-loader [isLoading]="isLoading"></app-loader>
   <div *ngIf="vehicles">
     <div class="filterbtns d-flex mb-1 mt-3 p-2">
-      <div *ngIf="customers" [(ngModel)]="selectedCustomer" ngbDropdown class="d-inline-block">
-        <button class="btn " id="dropdownBasic1" ngbDropdownToggle>Select Customer</button>
+      <div *ngIf="customers" ngbDropdown class="d-inline-block">
+        <button class="btn " id="dropdownBasic1" ngbDropdownToggle>{{ selectedCustomer?.name }}</button>
         <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-          <button *ngFor="let customer of customers" ngbDropdownItem>
+          <button *ngFor="let customer of customers" (click)="filterByCustomer(customer)" ngbDropdownItem>
             {{ customer.name }}
           </button>
         </div>
@@ -13,11 +12,11 @@
 
       <div class="btn-group btn-group-toggle  ml-2" ngbRadioGroup name="radioBasic" [(ngModel)]="selectedStatus">
         <label ngbButtonLabel class="btn-light">
-          <input (change)="filterConnected(true)" value="1" ngbButton type="radio" /> Connected
+          <input (change)="filterConnected(1)" value="1" ngbButton type="radio" /> Connected
         </label>
 
         <label ngbButtonLabel class="btn-light">
-          <input (change)="filterConnected(false)" value="2" ngbButton type="radio" /> Disconnected
+          <input (change)="filterConnected(2)" value="2" ngbButton type="radio" /> Disconnected
         </label>
       </div>
 
@@ -75,4 +74,6 @@
       </div>
     </div>
   </div>
+
+  <app-loader [isLoading]="isLoading"></app-loader>
 </div>
