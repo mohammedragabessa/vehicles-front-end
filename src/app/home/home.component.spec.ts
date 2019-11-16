@@ -5,6 +5,7 @@ import { CoreModule } from '@app/core';
 import { SharedModule } from '@app/shared';
 import { HomeComponent } from './home.component';
 import { VehicleService } from './vehicle.service';
+import { FormsModule } from '@angular/forms';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -12,7 +13,7 @@ describe('HomeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [CoreModule, SharedModule, HttpClientTestingModule],
+      imports: [CoreModule, SharedModule, HttpClientTestingModule, FormsModule],
       declarations: [HomeComponent],
       providers: [VehicleService]
     }).compileComponents();
