@@ -40,22 +40,13 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.getVehicles();
 
     const source = interval(300000);
-    this.subscription = source.subscribe((val: any) => this.updateRandomStatus());
+    this.subscription = source.subscribe((val: any) => this.getVehicles());
   }
 
   clearFilters() {
     this.vehicles = this.allvehicles;
     this.selectedStatus = 0;
     this.selectedCustomer = this.emptyCustomer;
-  }
-
-  updateRandomStatus() {
-    this.allvehicles.forEach(function(part: any, index: any) {
-      this[index].isConnected = Math.random() >= 0.5;
-    }, this.allvehicles);
-
-    this.recalculateCounts();
-    this.filterData();
   }
 
   filterConnected(status: number) {
@@ -97,6 +88,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.allvehicles = data;
         this.vehicles = data;
         this.recalculateCounts();
+        this.getVehicles();
       });
   }
 
