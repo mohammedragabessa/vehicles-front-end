@@ -8,12 +8,11 @@
 // This is useful for granularity you might need beyond just the environment.
 // Note that as usual, any environment variables you expose through it will end up in your
 // bundle, and you should not use it for any sensitive information like passwords or keys.
-import { env } from '@env/.env';
 
 export const environment = {
   production: false,
   hmr: true,
-  version: env.npm_package_version + '-dev',
+  version: '1.0.0-dev',
   serverUrl: 'http://localhost:3000/',
   defaultLanguage: 'en-US',
   supportedLanguages: ['en-US', 'fr-FR']
