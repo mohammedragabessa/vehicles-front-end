@@ -60,6 +60,10 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   private filterData() {
+    if (this.selectedCustomer.id === -1 && this.selectedStatus === 0) {
+      return;
+    }
+
     if (this.selectedCustomer.id === -1 && this.selectedStatus !== 0) {
       this.vehicles = this.allvehicles.filter(v => v.isConnected === (this.selectedStatus === 1));
       return;
@@ -88,7 +92,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.allvehicles = data;
         this.vehicles = data;
         this.recalculateCounts();
-        this.getVehicles();
+        this.filterData();
       });
   }
 
