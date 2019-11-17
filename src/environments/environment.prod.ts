@@ -9,7 +9,7 @@ export const environment = {
   production: true,
   hmr: false,
   version: '1.0.0',
-  serverUrl: 'http://vehicle-backend-container.us-east-2.elasticbeanstalk.com/',
+  serverUrl: 'http://vehicles-backend-dev.us-east-2.elasticbeanstalk.com/',
   defaultLanguage: 'en-US',
   supportedLanguages: ['en-US', 'fr-FR']
 };
