@@ -16,5 +16,7 @@ COPY --from=node /app/dist/vehicle-frontend/custom-nginx-file.conf /etc/nginx/co
 ## Expose the docker port
 EXPOSE 8080
 ## Initiate the NGINX
-CMD ["nginx", "-g", "daemon off;"]
+# CMD ["nginx", "-g", "daemon off;"]
+CMD "npm start"
+
 
