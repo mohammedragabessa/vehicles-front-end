@@ -10,24 +10,27 @@ import { interval } from 'rxjs';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit, OnDestroy {
+  //#region Public Properties
+
   allvehicles: any[];
   vehicles: any[];
-
   customers: any[];
-
   disconnectedCount = 0;
   connectedCount = 0;
   isLoading = false;
   selectedStatus = 0;
   selectedCustomer: any;
-
   emptyCustomer = {
     name: 'Select Customer',
     id: -1
   };
   subscription: any;
 
+  //#endregion
+
   constructor(private vehicleService: VehicleService) {}
+
+  //#region component events
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
@@ -38,11 +41,13 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.selectedCustomer = this.emptyCustomer;
     this.getCustomers();
     this.getVehicles();
-
     const source = interval(60000);
     this.subscription = source.subscribe((val: any) => this.getVehicles());
   }
 
+  //#endregion
+
+  // #region Public methods
   clearFilters() {
     this.vehicles = this.allvehicles;
     this.selectedStatus = 0;
@@ -58,6 +63,26 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.selectedCustomer = customer;
     this.filterData();
   }
+
+  getVehicles() {
+    this.vehicleService
+      .getVehicles()
+      .pipe(
+        finalize(() => {
+          this.isLoading = false;
+        })
+      )
+      .subscribe((data: any) => {
+        this.allvehicles = data;
+        this.vehicles = data;
+        this.recalculateCounts();
+        this.filterData();
+      });
+  }
+
+  //#endregion
+
+  //#region  private methods
 
   private filterData() {
     if (this.selectedCustomer.id === -1 && this.selectedStatus === 0) {
@@ -80,22 +105,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     );
   }
 
-  private getVehicles() {
-    this.vehicleService
-      .getVehicles()
-      .pipe(
-        finalize(() => {
-          this.isLoading = false;
-        })
-      )
-      .subscribe((data: any) => {
-        this.allvehicles = data;
-        this.vehicles = data;
-        this.recalculateCounts();
-        this.filterData();
-      });
-  }
-
   private recalculateCounts() {
     this.disconnectedCount = this.allvehicles.filter(e => e.isConnected === false).length;
     this.connectedCount = this.allvehicles.filter(e => e.isConnected === true).length;
@@ -113,4 +122,6 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.customers = data;
       });
   }
+
+  //#endregion
 }
