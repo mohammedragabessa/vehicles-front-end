@@ -30,14 +30,24 @@ branches:
   only:
     - master
 
-before_deploy: echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+before_deploy:
+  - echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+  - docker push mohamedragabessa/vehicle-frontend:latest
+
 deploy:
-  provider: script
-  script: docker push mohamedragabessa/vehicle-frontend:latest
+  provider: elasticbeanstalk
+  access_key_id:
+    secure: '$ACCESSKEYID'
+  secret_access_key:
+    secure: '$SECRETACCESSKEY'
+  region: '$REGION'
+  app: 'vehicles-front-end'
+  env: 'vehicles-front-end-dev'
+  bucket_path: 'vehicles-front-end'
+  bucket_name: 'elasticbeanstalk-us-east-2-307045200927'
+  skip_cleanup: true
   on:
     branch: master
-# deploy:
-#   provider: script
-#   script: docker push 307045200927.dkr.ecr.us-east-2.amazonaws.com/vehicles/frontend:latest
-#   on:
-#     branch: master
+
+after_deploy:
+  - echo "Applcation Deployed!"
