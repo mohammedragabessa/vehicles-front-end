@@ -1,18 +1,31 @@
-# stage 1
-FROM node:latest as node 
-WORKDIR /app
-COPY . .
+# Check out https://hub.docker.com/_/node to select a new base image
+FROM node:10-slim as node 
+
+# Set to a non-root built-in user `node`
+USER node
+
+# Create app directory (with user `node`)
+RUN mkdir -p /home/node/app
+
+WORKDIR /home/node/app
+
+# Install app dependencies
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+# where available (npm@5+)
+COPY --chown=node package*.json ./
+
 RUN npm install
-RUN npm run build --prod
+
+# Bundle app source code
+COPY --chown=node . .
+
+RUN npm run build
 
 # Bind to all network interfaces so that it can be mapped to the host OS
 ENV HOST=0.0.0.0 PORT=8080
 
-#stage 2
-FROM nginx:alpine
-COPY --from=node /app/dist /usr/share/nginx/html
-## Set the permission for NGINX web folder
-RUN chmod 777 -R /usr/share/nginx/html
-COPY --from=node /app/dist/custom-nginx-file.conf /etc/nginx/conf.d/default.conf
+# EXPOSE ${PORT}
+
 EXPOSE 8080
-CMD ["nginx", "-g", "daemon off;"]
+
+CMD [ "node", "." ]
