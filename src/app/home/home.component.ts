@@ -42,7 +42,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.getCustomers();
     this.getVehicles();
     const source = interval(60000);
-    this.subscription = source.subscribe((val: any) => this.getVehicles());
+
+    // the following line commented for free tier usage limits in aws beanstalk
+    // this.subscription = source.subscribe((val: any) => this.getVehicles());
   }
 
   //#endregion
