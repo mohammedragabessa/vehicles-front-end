@@ -35,23 +35,19 @@ before_deploy:
   - docker push mohamedragabessa/vehicle-frontend:latest
 
 deploy:
-  provider: script
-  script: echo "Applcation simulation!"
-
-# deploy:
-#   provider: elasticbeanstalk
-#   access_key_id:
-#     secure: '$ACCESSKEYID'
-#   secret_access_key:
-#     secure: '$SECRETACCESSKEY'
-#   region: '$REGION'
-#   app: 'vehicles-front-end'
-#   env: 'vehicles-front-end-dev'
-#   bucket_path: 'vehicles-front-end'
-#   bucket_name: 'elasticbeanstalk-us-east-2-307045200927'
-#   skip_cleanup: true
-#   on:
-#     branch: master
+  provider: elasticbeanstalk
+  access_key_id:
+    secure: '$ACCESSKEYID'
+  secret_access_key:
+    secure: '$SECRETACCESSKEY'
+  region: '$REGION'
+  app: 'vehicles-front-end'
+  env: 'vehicles-front-end-dev'
+  bucket_path: 'vehicles-front-end'
+  bucket_name: 'elasticbeanstalk-us-east-2-307045200927'
+  skip_cleanup: true
+  on:
+    branch: master
 
 after_deploy:
   - echo "Applcation Deployed!"
