@@ -18,6 +18,6 @@ COPY --from=node /app/dist/custom-nginx-file.conf /etc/nginx/conf.d/default.conf
 ENV HOST=0.0.0.0 PORT=8080
 
 ## Expose the docker port
-EXPOSE 8080
+EXPOSE 8081
 ## Initiate the NGINX
 CMD ["nginx", "-g", "daemon off;"]
