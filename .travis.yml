@@ -41,9 +41,9 @@ deploy:
   secret_access_key:
     secure: '$SECRETACCESSKEY'
   region: '$REGION'
-  app: 'vehicles-front-end'
-  env: 'vehicles-front-end-dev'
-  bucket_path: 'vehicles-front-end'
+  app: 'vehicles-front-end3'
+  env: 'vehicles-front-end3-dev'
+  bucket_path: 'vehicles-front-end3'
   bucket_name: 'elasticbeanstalk-us-east-2-307045200927'
   skip_cleanup: true
   on:
