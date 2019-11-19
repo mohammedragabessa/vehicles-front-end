@@ -78,7 +78,7 @@
             "production": {
               "hmr": false,
               "browserTarget": "vehicles:build:production",
-              "port": 80
+              "port": 8080
             },
             "ci": {
               "progress": false
