@@ -14,9 +14,6 @@ RUN chmod 777 -R /usr/share/nginx/html
 
 COPY --from=node /app/dist/custom-nginx-file.conf /etc/nginx/conf.d/default.conf
 
-# Bind to all network interfaces so that it can be mapped to the host OS
-ENV HOST=0.0.0.0 PORT=8080
-
 ## Expose the docker port
 EXPOSE 8080
 ## Initiate the NGINX

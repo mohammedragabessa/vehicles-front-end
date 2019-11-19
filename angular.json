@@ -69,12 +69,14 @@
           "options": {
             "hmr": true,
             "hmrWarning": false,
-            "browserTarget": "vehicles:build"
+            "browserTarget": "vehicles:build",
+            "port": 4200
           },
           "configurations": {
             "production": {
               "hmr": false,
-              "browserTarget": "vehicles:build:production"
+              "browserTarget": "vehicles:build:production",
+              "port": 8080
             },
             "ci": {
               "progress": false
